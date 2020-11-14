@@ -20,6 +20,10 @@ canvas.addEventListener("mousemove", function (evt) {
     showCoor(output, mousePos.x, mousePos.y)
 }, false)
 
+canvas.addEventListener("click",function(){
+    console.log("Dio click")
+},false)
+
 function posMouseF(canvas, evt) {
     var ClientRect = canvas.getBoundingClientRect()
     return { //objeto
