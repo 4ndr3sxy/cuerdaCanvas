@@ -12,7 +12,7 @@ if (canvas && canvas.getContext) {
         canvas.addEventListener("mouseout", function (evt) {
             limpiarCoords(output);
         }, false);
-        */
+*/
     }
 }
 

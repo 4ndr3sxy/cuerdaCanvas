@@ -1,8 +1,7 @@
 var canvas = document.getElementById('canvasCuerda')
+var output = document.getElementById('output')
 var ctx = canvas.getContext('2d')
 var size = 1000
-
-var domRect = element.getBoundingClientRect();
 
 
 function load(){
@@ -14,14 +13,26 @@ function load(){
     ctx.lineTo(size/2, size)
     ctx.stroke()
     //console.log(positionMouse())
-    console.log(domRect)
 }
 
-function oMousePos(canvas,evt){
-    console.log("Entry in mouse")
-    var ClientRect = canvas.getBoundingClientRect();
-	return { //objeto
-	x: Math.round(evt.clientX - ClientRect.left),
-	y: Math.round(evt.clientY - ClientRect.top)
+canvas.addEventListener("mousemove", function (evt) {
+    var mousePos = posMouseF(canvas, evt)
+    showCoor(output, mousePos.x, mousePos.y)
+}, false)
+
+function posMouseF(canvas, evt) {
+    var ClientRect = canvas.getBoundingClientRect()
+    return { //objeto
+        x: Math.round(evt.clientX - ClientRect.left),
+        y: Math.round(evt.clientY - ClientRect.top)
     }
+}
+
+function showCoor(output, x, y) {
+    output.innerHTML = ("x: " + x + ", y: " + y)
+    output.style.top = (y + 10) + "px"
+    output.style.left = (x + 10) + "px"
+    output.style.backgroundColor = "#FFF"
+    output.style.border = "1px solid #d9d9d9"
+    canvas.style.cursor = "pointer"
 }
