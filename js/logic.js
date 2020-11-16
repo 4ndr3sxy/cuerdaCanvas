@@ -2,7 +2,7 @@ var canvas = document.getElementById('canvasCuerda')
 var output = document.getElementById('output')
 var ctx = canvas.getContext('2d')
 var size = 1000
-
+var mousePos
 
 function load(){
     console.log("entry")
@@ -16,11 +16,13 @@ function load(){
 }
 
 canvas.addEventListener("mousemove", function (evt) {
-    var mousePos = posMouseF(canvas, evt)
+    mousePos = posMouseF(canvas, evt)
     showCoor(output, mousePos.x, mousePos.y)
+    reDraw()
 }, false)
 
 canvas.addEventListener("click",function(){
+    reDraw()
     console.log("Dio click")
 },false)
 
@@ -39,4 +41,22 @@ function showCoor(output, x, y) {
     output.style.backgroundColor = "#FFF"
     output.style.border = "1px solid #d9d9d9"
     canvas.style.cursor = "pointer"
+}
+
+function reDraw(){
+    console.log(mousePos.x, mousePos.y)
+    ctx.clearRect(0, 0, size, size)
+    ctx.lineWidth = 5
+
+    ctx.beginPath()
+    ctx.strokeStyle = "#f00"
+    ctx.moveTo(size/2, 0)
+    ctx.lineTo(mousePos.x, mousePos.y)
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.strokeStyle = "#f00"
+    ctx.moveTo(mousePos.x, mousePos.y)
+    ctx.lineTo(size/2, 900)
+    ctx.stroke()
 }
