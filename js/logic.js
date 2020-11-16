@@ -3,15 +3,15 @@
 var canvas = document.getElementById('canvasCuerda')
 var output = document.getElementById('output')
 var ctx = canvas.getContext('2d')
-var size = 1000
-var sizeRope = 1100
+var size = 2000
+var sizeRope = 1500
 var mousePos
 
 function load(){
     console.log("entry")
     ctx.lineWidth = 5
     ctx.beginPath()
-    ctx.strokeStyle = "#f00"
+    ctx.strokeStyle = "#955F53"
     ctx.moveTo(size/2, 0)
     ctx.lineTo(size/2, size)
     ctx.stroke()
@@ -41,7 +41,7 @@ function reDraw(){
     ctx.clearRect(0, 0, size, size)
 
     ctx.beginPath()
-    ctx.strokeStyle = "#f00"
+    ctx.strokeStyle = "#955F53"
     ctx.moveTo(size/2, 0)
     ctx.lineTo(mousePos.x, mousePos.y)
     ctx.stroke()
@@ -54,7 +54,7 @@ function reDraw(){
     console.log(a , b, h)
 
     ctx.beginPath()
-    ctx.strokeStyle = "#f00"
+    ctx.strokeStyle = "#955F53"
     ctx.moveTo(mousePos.x, mousePos.y)
     ctx.lineTo(mousePos.x, x + mousePos.y)
     ctx.stroke()
