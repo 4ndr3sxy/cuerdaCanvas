@@ -1,7 +1,10 @@
+
+
 var canvas = document.getElementById('canvasCuerda')
 var output = document.getElementById('output')
 var ctx = canvas.getContext('2d')
 var size = 1000
+var sizeRope = 1100
 var mousePos
 
 function load(){
@@ -15,16 +18,6 @@ function load(){
     //console.log(positionMouse())
 }
 
-canvas.addEventListener("mousemove", function (evt) {
-    mousePos = posMouseF(canvas, evt)
-    showCoor(output, mousePos.x, mousePos.y)
-    reDraw()
-}, false)
-
-canvas.addEventListener("click",function(){
-    reDraw()
-    console.log("Dio click")
-},false)
 
 function posMouseF(canvas, evt) {
     var ClientRect = canvas.getBoundingClientRect()
@@ -44,9 +37,8 @@ function showCoor(output, x, y) {
 }
 
 function reDraw(){
-    console.log(mousePos.x, mousePos.y)
+    //console.log(mousePos.x, mousePos.y)
     ctx.clearRect(0, 0, size, size)
-    ctx.lineWidth = 5
 
     ctx.beginPath()
     ctx.strokeStyle = "#f00"
@@ -54,9 +46,27 @@ function reDraw(){
     ctx.lineTo(mousePos.x, mousePos.y)
     ctx.stroke()
 
+    let a = mousePos.x - size/2
+    let b = mousePos.y
+    let h = Math.sqrt((b*b)+(a*a))
+    let x = sizeRope - h
+
+    console.log(a , b, h)
+
     ctx.beginPath()
     ctx.strokeStyle = "#f00"
     ctx.moveTo(mousePos.x, mousePos.y)
-    ctx.lineTo(mousePos.x, 1000)
+    ctx.lineTo(mousePos.x, x + mousePos.y)
     ctx.stroke()
 }
+
+canvas.addEventListener("mousemove", function (evt) {
+    mousePos = posMouseF(canvas, evt)
+    showCoor(output, mousePos.x, mousePos.y)
+    reDraw()
+}, false)
+
+canvas.addEventListener("click",function(){
+    reDraw()
+    console.log("Dio click")
+},false)
