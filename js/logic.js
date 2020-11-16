@@ -64,7 +64,7 @@ function resetCanvas() {
 function getHypotenuse(){
     let a = mousePos.x - size / 2 //position end of rope less position initial of rope (get side 'A' of triangule)
     let b = mousePos.y // get side 'B' of triangule
-    let h = Math.sqrt((b * b) + (a * a)) //hypotenuse with Pythagoras equation 
+    let h = Math.sqrt((b * b) + (a * a)) //hypotenuse with Pythagoras equation
     let x = sizeRope - h //subtract hypotenuse of the rope size initial
     return x
 }
