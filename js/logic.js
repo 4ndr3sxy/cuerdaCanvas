@@ -57,6 +57,6 @@ function reDraw(){
     ctx.beginPath()
     ctx.strokeStyle = "#f00"
     ctx.moveTo(mousePos.x, mousePos.y)
-    ctx.lineTo(size/2, 900)
+    ctx.lineTo(mousePos.y, 1000)
     ctx.stroke()
 }
