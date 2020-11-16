@@ -12,6 +12,7 @@ function load() {
     draw(size / 2, 0, size / 2, size)
 }
 
+//draw in canvas
 function draw(mX, mY, lX, lY) {
     ctx.beginPath()
     ctx.strokeStyle = "#955F53"
@@ -46,22 +47,25 @@ function showCoor(output, x, y) {
     canvas.style.cursor = "pointer"
 }
 
+//draw in canvas with adjustment in rope shape 
 function reDraw() {
-    resetCanvas()//clean canvas
-    draw(size / 2, 0,mousePos.x, mousePos.y)
+    resetCanvas()
+    draw(size / 2, 0,mousePos.x, mousePos.y) //firts part of the rope
     let xF = getHypotenuse()
-    draw(mousePos.x, mousePos.y, mousePos.x, xF + mousePos.y )
+    draw(mousePos.x, mousePos.y, mousePos.x, xF + mousePos.y )//second part of the rope
 }
 
+//clean canvas
 function resetCanvas() {
     ctx.clearRect(0, 0, size, size)
 }
 
+//get difference missing of rope length (according of triangule of Pythagoras)
 function getHypotenuse(){
-    let a = mousePos.x - size / 2
-    let b = mousePos.y
-    let h = Math.sqrt((b * b) + (a * a))
-    let x = sizeRope - h
+    let a = mousePos.x - size / 2 //position end of rope less position initial of rope (get side 'A' of triangule)
+    let b = mousePos.y // get side 'B' of triangule
+    let h = Math.sqrt((b * b) + (a * a)) //hypotenuse with Pythagoras equation 
+    let x = sizeRope - h //subtract hypotenuse of the rope size initial
     return x
 }
 
