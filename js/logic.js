@@ -26,6 +26,10 @@ canvas.addEventListener("mousemove", function (evt) {
     mousePos = posMouseF(canvas, evt)
     //showCoor(output, mousePos.x, mousePos.y)
     reDraw()
+    if(validateLimitCoor){
+        console.log("validate entry")
+        setTimeout(test123,10);
+    }
 }, false)
 
 //get coordinates of mouse in X and Y 
@@ -52,7 +56,8 @@ function reDraw() {
     resetCanvas()
     draw(size / 2, 0,mousePos.x, mousePos.y) //firts part of the rope
     let xF = getHypotenuse()
-    draw(mousePos.x, mousePos.y, mousePos.x, xF + mousePos.y )//second part of the rope
+    if(xF >= 0)
+        draw(mousePos.x, mousePos.y, mousePos.x, xF + mousePos.y )//second part of the rope
 }
 
 //clean canvas
@@ -60,12 +65,15 @@ function resetCanvas() {
     ctx.clearRect(0, 0, size, size)
 }
 
+var validateLimitCoor =false
 //get difference missing of rope length (according of triangule of Pythagoras)
 function getHypotenuse(){
     let a = mousePos.x - size / 2 //position end of rope less position initial of rope (get side 'A' of triangule)
     let b = mousePos.y // get side 'B' of triangule
     let h = Math.sqrt((b * b) + (a * a)) //hypotenuse with Pythagoras equation
     let x = sizeRope - h //subtract hypotenuse of the rope size initial
+    if(x < 0)
+        validateLimitCoor = true
     return x
 }
 
@@ -74,3 +82,19 @@ canvas.addEventListener("click", function () {
     reDraw()
     console.log("Dio click")
 }, false)
+
+var a = 10,b=10,c=10,d=10
+function test123(){
+    resetCanvas()
+    ctx.beginPath()
+    ctx.strokeStyle = "#955F53"
+    ctx.moveTo(10, 10)
+    ctx.lineTo(c, d)
+    ctx.stroke()
+    a += 10
+    b +=10
+    c +=10
+    d += 10
+    validateLimitCoor = false
+    setTimeout(test123,1000)
+}
