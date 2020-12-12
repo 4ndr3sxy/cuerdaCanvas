@@ -9,7 +9,7 @@ var mousePos
 function load() {
     console.log("entry")
     ctx.lineWidth = 5 //thickness rope
-    draw(size / 2, 0, size / 2, size)
+    draw(size / 2, 0, size / 2, sizeRope)
 }
 
 //draw in canvas
@@ -21,14 +21,20 @@ function draw(mX, mY, lX, lY) {
     ctx.stroke()
 }
 
+var xTmp, yTmp
 //event move mouse
 canvas.addEventListener("mousemove", function (evt) {
-    mousePos = posMouseF(canvas, evt)
     //showCoor(output, mousePos.x, mousePos.y)
-    reDraw()
+    mousePos = posMouseF(canvas, evt)
+    
     if(validateLimitCoor){
         console.log("validate entry")
-        setTimeout(test123,10);
+        xTmp = mousePos.x
+        yTmp = mousePos.y
+        drawParabolic()
+        //setTimeout(test123,10)
+    }else{
+        reDraw()
     }
 }, false)
 
@@ -74,27 +80,64 @@ function getHypotenuse(){
     let x = sizeRope - h //subtract hypotenuse of the rope size initial
     if(x < 0)
         validateLimitCoor = true
+    else{
+        validateLimitCoor = false
+    }
     return x
 }
 
 
 canvas.addEventListener("click", function () {
     reDraw()
-    console.log("Dio click")
+    console.log("Dio click"+ mousePos.x + " - "+mousePos.y)
 }, false)
 
-var a = 10,b=10,c=10,d=10
-function test123(){
+var tmpCoor = 1
+var timer
+function drawParabolic(){
+    if(xTmp > 1000){
+        parabolicRightLeft()
+    }else{
+        parabolicLeftRight()
+    }
+}
+
+function parabolicLeftRight(){
     resetCanvas()
-    ctx.beginPath()
-    ctx.strokeStyle = "#955F53"
-    ctx.moveTo(10, 10)
-    ctx.lineTo(c, d)
-    ctx.stroke()
-    a += 10
-    b +=10
-    c +=10
-    d += 10
-    validateLimitCoor = false
-    setTimeout(test123,1000)
+    draw(size / 2, 0,xTmp, yTmp)
+    if(tmpP < 1000){
+        timer = setTimeout(parabolicRightLeft,100)
+    }else{
+         clearTimeout(timer)
+         tmpP = 0
+    }
+}
+
+var valYTmp = false
+var dParabolicX = 0
+var tmpP = 0
+function parabolicRightLeft(){
+    resetCanvas()
+    draw(size / 2, 0,xTmp, yTmp)
+    xTmp--
+    if(yTmp<=1500 && !valYTmp){
+        if(xTmp % 5 == 0){
+            yTmp++
+        }
+    }else{
+        if(xTmp % 5 == 0){
+            yTmp-- 
+        }
+        valYTmp = true
+    }
+    if(tmpP < 1000){
+        timer = setTimeout(parabolicRightLeft,100)
+    }else{
+         clearTimeout(timer)
+    }
+    tmpP++
+}
+
+function diferentParabolicX(){
+
 }
