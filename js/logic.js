@@ -30,26 +30,31 @@ function draw(mX, mY, lX, lY) {
 
 var xTmp, yTmp
 var valRgb = false
+var valMouseMove
 //event move mouse
-canvas.addEventListener("mousemove", function (evt) {
-    //showCoor(output, mousePos.x, mousePos.y)
-    mousePos = posMouseF(canvas, evt)
-    var rgb = !valRgb ? getaverageColor() : true
-    if (rgb){
-        if(validateLimitCoor){
-            valRgb = false
-            console.log("validate entry")
-            xTmp = mousePos.x
-            yTmp = mousePos.y
-            //drawParabolic()
-            
-            drawParabolic()
-            //setTimeout(drawParabolic,1)
-        }else{
-            reDraw()
+if(!valMouseMove){
+    canvas.addEventListener("mousemove", function (evt) {
+        console.log("MouseMove")
+        //showCoor(output, mousePos.x, mousePos.y)
+        mousePos = posMouseF(canvas, evt)
+        var rgb = !valRgb ? getaverageColor() : true
+        if (rgb){
+            if(validateLimitCoor){
+                valRgb = false
+                console.log("validate entry")
+                xTmp = mousePos.x
+                yTmp = mousePos.y
+                //drawParabolic()
+                
+                drawParabolic()
+                //setTimeout(drawParabolic,1)
+            }else{
+                reDraw()
+            }
         }
-    }
-}, false)
+    }, false)
+}
+
 
 
 //get coordinates of mouse in X and Y 
@@ -102,14 +107,35 @@ function getHypotenuse(){
 
 
 canvas.addEventListener("click", function () {
+    valMouseMove = false
+    console.log(valMouseMove)
     let adjMousePosX = mousePos.x
     let adjMousePosY = mousePos.y
+    difLineRope = getHypotenuse()
     adjMousePosX -= 2000
     console.log("Dio click"+ mousePos.x + " - "+mousePos.y)
+    drawCurve()
     //console.log(Math.abs(getGrades(adjMousePosX,adjMousePosY) - 90))
     
     //reDraw()
 }, false)
+
+var difLineRope = 0
+function drawCurve(){
+    resetCanvas()
+    draw(size / 2, 0,mousePos.x, mousePos.y)
+    draw(mousePos.x, mousePos.y, mousePos.x, difLineRope + mousePos.y)
+    //ctx.quadraticCurveTo(/*posicion caida de cuerda en x*/10, /*posicion caida de cuerda en Y*/50, /*posicion en x*/150, /*posicion en y*/0);
+/*  let lC = getHypotenuse()
+    console.log(lC)
+    ctx.beginPath();
+    ctx.moveTo(mousePos.x, mousePos.y);
+    let valMedium = (mousePos.x + size / 2) / 2
+    ctx.quadraticCurveTo(valMedium, sizeRope - lC, size / 2, 0);
+    ctx.stroke(); 
+*/
+
+}
 
 var tmpCoor = 1
 var timer
