@@ -41,3 +41,5 @@ function oMousePos(canvas, evt) {
         y: Math.round(evt.clientY - ClientRect.top)
     }
 }
+
+console.log("helloDA")
